@@ -9,6 +9,8 @@ authors = [
 description = "A logger for the Internet Computer"
 repository = "https://github.com/zvolin/ic-logger"
 edition = "2021"
+categories = ["development-tools::debugging"]
+keywords = ["logging", "log", "logger", "internet-computer"]
 
 [dependencies]
 ic-cdk = "0.10.0"

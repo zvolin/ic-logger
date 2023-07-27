@@ -1,4 +1,6 @@
-# ic-logger [![](https://img.shields.io/github/tag/borntyping/rust-simple_logger.svg)](https://github.com/borntyping/rust-simple_logger/tags) [![](https://img.shields.io/travis/borntyping/rust-simple_logger.svg)](https://travis-ci.org/borntyping/rust-simple_logger) [![](https://img.shields.io/github/issues/borntyping/rust-simple_logger.svg)](https://github.com/borntyping/rust-simple_logger/issues)
+[![](https://img.shields.io/github/tag/zvolin/ic-logger)](https://github.com/zvolin/ic-logger/tags) [![](https://img.shields.io/docsrs/ic-logger/latest)](https://docs.rs/ic-logger/latest/ic_logger/) [![](https://img.shields.io/crates/d/ic-logger)](https://crates.io/crates/ic-logger)
+
+# ic-logger 
 
 A simple logging backend for [ICP](https://internetcomputer.org) canisters.
 
@@ -41,7 +43,7 @@ dfx deploy
 dfx call my_canister baz
 ```
 
-As the canister's flexible memory may be dropped, it's suggested to call `ic_logger::init()` (or any equivalent)
+As the canister's flexible memory may be dropped, it's suggested to call `ic_logger::init()` (or equivalent)
 in each canister function and drop the result in case the logger was already initialized.
 
 Licence
