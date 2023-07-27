@@ -1,8 +1,8 @@
 use log::LevelFilter;
-use simple_logger::SimpleLogger;
+use ic_logger::IcLogger;
 
 fn main() {
-    SimpleLogger::new()
+    IcLogger::new()
         .with_level(LevelFilter::Info)
         .with_module_level("init_with_target_level", LevelFilter::Off)
         .init()

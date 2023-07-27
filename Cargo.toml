@@ -1,52 +1,31 @@
 [package]
-name = "simple_logger"
-version = "4.2.0"
+name = "ic-logger"
+version = "0.1.0"
 license = "MIT"
-authors = ["Sam Clements <sam@borntyping.co.uk>"]
-description = "A logger that prints all messages with a readable output format"
-repository = "https://github.com/borntyping/rust-simple_logger"
-edition = "2018"
-
-[features]
-default = ["colors", "timestamps"]
-colors = ["colored"]
-threads = []
-timestamps = ["time"]
-nightly = []
-stderr = []
+authors = [
+  "Sam Clements <sam@borntyping.co.uk>",
+  "Maciej Zwoliński <mac.zwolinski@gmail.com>",
+]
+description = "A logger for the Internet Computer"
+repository = "https://github.com/zvolin/ic-logger"
+edition = "2021"
 
 [dependencies]
+ic-cdk = "0.10.0"
 log = { version = "^0.4.17", features = ["std"] }
-time = { version = "^0.3.16", features = ["formatting", "local-offset", "macros"], optional = true }
-colored = { version = "2", optional = true }
-
-[target.'cfg(windows)'.dependencies]
-windows-sys = { version = "^0.42.0", features = ["Win32_System_Console", "Win32_Foundation"] }
 
 [[example]]
-name = "colors"
-required-features = ["colors"]
+name = "flush"
+path = "examples/flush.rs"
 
 [[example]]
-name = "threads"
-required-features = ["threads"]
+name = "init"
+path = "examples/init.rs"
 
 [[example]]
-name = "timestamps_local"
-required-features = ["timestamps"]
+name = "init_with_level"
+path = "examples/init_with_level.rs"
 
 [[example]]
-name = "timestamps_none"
-required-features = ["timestamps"]
-
-[[example]]
-name = "timestamps_utc"
-required-features = ["timestamps"]
-
-[[example]]
-name = "timestamps_utc_offset"
-required-features = ["timestamps"]
-
-[[example]]
-name = "timestamps_format"
-required-features = ["timestamps"]
+name = "init_with_target_level"
+path = "examples/init_with_target_level.rs"

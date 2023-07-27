@@ -1,7 +1,7 @@
-use simple_logger::SimpleLogger;
+use ic_logger::IcLogger;
 
 fn main() {
-    SimpleLogger::new().init().unwrap();
+    IcLogger::new().init().unwrap();
 
     log::warn!("This is an example message.");
 

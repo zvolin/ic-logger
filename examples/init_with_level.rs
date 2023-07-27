@@ -1,8 +1,8 @@
 use log::LevelFilter;
-use simple_logger::SimpleLogger;
+use ic_logger::IcLogger;
 
 fn main() {
-    SimpleLogger::new().with_level(LevelFilter::Warn).init().unwrap();
+    IcLogger::new().with_level(LevelFilter::Warn).init().unwrap();
 
     log::warn!("This will be logged.");
     log::info!("This will NOT be logged.");

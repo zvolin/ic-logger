@@ -1,95 +1,55 @@
-# simple_logger [![](https://img.shields.io/github/tag/borntyping/rust-simple_logger.svg)](https://github.com/borntyping/rust-simple_logger/tags) [![](https://img.shields.io/travis/borntyping/rust-simple_logger.svg)](https://travis-ci.org/borntyping/rust-simple_logger) [![](https://img.shields.io/github/issues/borntyping/rust-simple_logger.svg)](https://github.com/borntyping/rust-simple_logger/issues)
+# ic-logger [![](https://img.shields.io/github/tag/borntyping/rust-simple_logger.svg)](https://github.com/borntyping/rust-simple_logger/tags) [![](https://img.shields.io/travis/borntyping/rust-simple_logger.svg)](https://travis-ci.org/borntyping/rust-simple_logger) [![](https://img.shields.io/github/issues/borntyping/rust-simple_logger.svg)](https://github.com/borntyping/rust-simple_logger/issues)
 
-A logger that prints all messages with a readable output format.
-
-The output format is based on the format used by [Supervisord](https://github.com/Supervisor/supervisor), with timestamps default [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) format. The format used for timestamps can be customised.
-
-* [Source on GitHub](https://github.com/borntyping/rust-simple_logger)
-* [Packages on Crates.io](https://crates.io/crates/simple_logger)
-* [Documentation on Docs.rs](https://docs.rs/simple_logger)
-
-Breaking changes
-----------------
-
-- **Version 2.0.0 changes the default from displaying timestamps in the local timezone to displaying timestamps in UTC.** See issue [#52](https://github.com/borntyping/rust-simple_logger/issues/52) for more information.
+A simple logging backend for [ICP](https://internetcomputer.org) canisters.
 
 Usage
 -----
 
 ```rust
-use simple_logger::SimpleLogger;
+use ic_cdk::{init, query};
 
-fn main() {
-    SimpleLogger::new().init().unwrap();
+mod foo {
+    pub fn bar() {
+        log::warn!("sample log");
+    }
+}
 
-    log::warn!("This is an example message.");
+#[init]
+async fn init() {
+    ic_cdk::setup();
+}
+
+#[update]
+async fn baz() -> Result<()> {
+    let _ = ic_logger::init();
+
+    foo::bar();
 }
 ```
 
 This outputs:
 
 ```txt
-2022-01-19T17:27:07.013874956Z WARN [logging_example] This is an example message.
+2023-07-27 23:08:09.718590904 UTC: [Canister bkyz2-fmaaa-aaaaa-qaaaq-cai] [WARN  my_canister::foo] sample log
 ```
 
 You can run the above example with:
 
 ```sh
-cargo run --example init
+dfx start --clean --background
+dfx deploy
+dfx call my_canister baz
 ```
 
-The `colors` and `timestamps` features are enabled by default. You can remove these
-features and their respective dependencies by disabling all features in your
-`Cargo.toml`.
-
-```toml
-[dependencies.simple_logger]
-default-features = false
-```
-
-To include the `timestamps` feature, but not the `colors` feature:
-
-```toml
-[dependencies.simple_logger]
-default-features = false
-features = ["timestamps"]
-```
-
-To include the `colors` feature, but not the `timestamps` feature:
-
-```toml
-[dependencies.simple_logger]
-default-features = false
-features = ["colors"]
-```
-
-To include thread metadata use the `threads` and `nightly` features:
-
-```toml
-[dependencies.simple_logger]
-features = ["threads", "nightly"]
-```
-
-To direct logging output to `stderr` use the `stderr` feature:
-
-```toml
-[dependencies.simple_logger]
-features = ["stderr"]
-```
-
-Multiple features can be combined.
-
-```toml
-[dependencies.simple_logger]
-features = ["colors", "threads", "timestamps", "nightly", "stderr"]
-```
+As the canister's flexible memory may be dropped, it's suggested to call `ic_logger::init()` (or any equivalent)
+in each canister function and drop the result in case the logger was already initialized.
 
 Licence
 -------
 
-`simple_logger` is licenced under the [MIT Licence](http://opensource.org/licenses/MIT).
+`ic-logger` is licenced under the [MIT Licence](http://opensource.org/licenses/MIT).
 
-Authors
+Credits
 -------
 
-Written by [Sam Clements](sam@borntyping.co.uk).
+Forked from [simple_logger](https://github.com/borntyping/rust-simple_logger) written by [Sam Clements](sam@borntyping.co.uk).
