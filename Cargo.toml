@@ -7,7 +7,10 @@ authors = [
   "Maciej Zwoliński <mac.zwolinski@gmail.com>",
 ]
 description = "A logger for the Internet Computer"
+readme = "README.md"
+homepage = "https://github.com/zvolin/ic-logger"
 repository = "https://github.com/zvolin/ic-logger"
+documentation = "https://docs.rs/ic-logger"
 edition = "2021"
 categories = ["development-tools::debugging"]
 keywords = ["logging", "log", "logger", "internet-computer"]
